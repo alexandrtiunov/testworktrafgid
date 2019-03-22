@@ -1,0 +1,24 @@
+.table1{
+    margin-top: 50px;
+    margin-left: 10%;
+    width: 80%;
+    display: block;
+}
+
+.table2{
+    margin-top: 50px;
+    margin-left: 10%;
+    width: 80%;
+    display: none;
+}
+
+.btn{
+    margin-top: 15px;
+}
+
+form {
+    width: 400px;
+    height: auto;
+    margin-top: 15px;
+    margin-left: 35%;
+}

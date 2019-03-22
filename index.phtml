@@ -1,0 +1,115 @@
+<?php
+include_once ('connect.php');
+
+include('selectsGroupBy.php');
+include ('selects.php');
+?>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+
+</head>
+<body>
+
+    <div class="main">
+        <div class="filter">
+
+            <form class="filter" method="post" action="action.php">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" name="count" class="value-input form-control" placeholder="количество товара >">
+                    </div>
+                    <div class="col">
+                        <select name="operator_id" class="form-control">
+                            <option selected >Выбрать оператора</option>
+                            <option value="10">Миронов Сергей Игоревич</option>
+                            <option value="12">Шевченко Андрей Иванович</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="reset-form btn btn-outline-danger">Сбросить</button>
+                </div>
+            </form>
+
+            <form class="form-group" action="action.php" method="post">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" name="count" value="1" hidden>
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="group-form btn btn-outline-success">Сгрупировать по товару</button>
+                    <button type="button" class="reset-group btn btn-outline-danger" data-toggle="action.php">Сбросить</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="table1">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Номер заказа</th>
+                    <th scope="col">Имя товара</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Имя оператора</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($selects as $select) : ?>
+                <tr>
+                    <th scope="row"><?= $select['id']?></th>
+                    <td><?= $select['offer_id']?></td>
+                    <td><?= $select['name']?></td>
+                    <td><?= $select['price']?></td>
+                    <td><?= $select['count']?></td>
+                    <td><?= $select['fio']?></td>
+                </tr>
+                <? endforeach;?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Имя товара</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Количество</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($selectsGroup as $value) :?>
+                    <tr>
+                        <td><?= $value['name']?></td>
+                        <td><?= $value['SUM(requests.price)']?></td>
+                        <td><?= $value['SUM(requests.count)']?></td>
+                    </tr>
+                <? endforeach;?>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
